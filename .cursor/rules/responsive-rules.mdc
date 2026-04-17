@@ -1,0 +1,63 @@
+---
+alwaysApply: true
+---
+
+---
+description: Responsive and mobile-first UI rules
+globs: **/*.tsx, **/*.jsx, **/*.css
+---
+
+# Responsive Design Rules
+
+## Core Principles
+- ALWAYS use mobile-first design
+- Build layouts for small screens first, then scale up
+- Prioritize usability over visual complexity
+
+## Layout
+- Use Flexbox or CSS Grid, NEVER fixed positioning unless necessary
+- Avoid fixed widths (px). Prefer %, rem, vw
+- Stack elements vertically on small screens
+- Use max-width instead of fixed width
+
+## Breakpoints
+- Use minimal breakpoints:
+  - sm: 640px
+  - md: 768px
+  - lg: 1024px
+- Let content determine breakpoints, not devices
+
+## Typography
+- Minimum font-size: 16px
+- Ensure readable line-height (1.4–1.6)
+- Avoid long text blocks on mobile
+
+## Touch & Interaction
+- Minimum tap target: 44x44px
+- Add spacing between clickable elements
+- Avoid hover-only interactions
+
+## Images & Media
+- Use responsive images:
+  - max-width: 100%
+  - height: auto
+- Lazy load images when possible
+
+## Performance
+- Minimize large images and heavy animations
+- Prefer simple transitions over complex effects
+
+## Navigation
+- Use simple navigation (hamburger or bottom nav)
+- Limit number of visible options
+
+## What NOT To Do
+- Do NOT use fixed pixel layouts
+- Do NOT cram desktop layout into mobile
+- Do NOT rely on hover effects
+- Do NOT create horizontal scrolling layouts
+
+## Tailwind Guidelines
+- Mobile styles first, then scale:
+  - text-sm md:text-lg
+- Use responsive utilities instead of custom media queries
