@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation"
 import { useRef, useState } from "react"
 import { useAction } from "next-safe-action/hooks"
 
+import { ImageIcon, SmileIcon } from "lucide-react"
+
 import { createPost } from "@/actions/post-actions"
 import { getPresignedUpload } from "@/actions/upload-actions"
 import { Button } from "@/components/ui/button"
@@ -83,19 +85,45 @@ export function ComposePost({ uploadEnabled }: ComposePostProps) {
     <form onSubmit={onSubmit} className="space-y-3 rounded-lg border p-4">
       <Textarea name="body" placeholder="What is happening?" maxLength={2000} rows={4} className="resize-y" />
       {uploadEnabled ? (
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+        <div className="flex items-center gap-1">
           <input
             ref={fileRef}
             type="file"
             accept="image/jpeg,image/png,image/webp,image/gif"
-            className="min-h-11 text-sm"
+            className="hidden"
             onChange={(ev) => setFile(ev.target.files?.[0] ?? null)}
           />
-          {file ? <span className="text-sm text-muted-foreground">{file.name}</span> : null}
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            title="Add image"
+            onClick={() => fileRef.current?.click()}
+            className="text-brand-purple hover:text-brand-pink hover:bg-brand-purple/10"
+          >
+            <ImageIcon className="h-5 w-5" />
+          </Button>
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            title="Add GIF"
+            className="text-brand-purple hover:text-brand-pink hover:bg-brand-purple/10"
+          >
+            <span className="text-xs font-bold tracking-tight border border-current rounded px-1 leading-5">GIF</span>
+          </Button>
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            title="Add emoji"
+            className="text-brand-purple hover:text-brand-pink hover:bg-brand-purple/10"
+          >
+            <SmileIcon className="h-5 w-5" />
+          </Button>
+          {file && <span className="ml-2 text-xs text-muted-foreground truncate max-w-[160px]">{file.name}</span>}
         </div>
-      ) : (
-        <p className="text-sm text-muted-foreground">Image uploads require S3 env configuration.</p>
-      )}
+      ) : null}
       {message ? <p className="text-sm text-destructive">{message}</p> : null}
       <Button type="submit" className="min-h-11 w-full sm:w-auto bg-gradient-to-r from-brand-purple via-brand-pink to-brand-lime text-white hover:opacity-90" disabled={busy}>
         {busy ? "Posting…" : "Post"}
