@@ -15,6 +15,13 @@ import {
 import { UserAvatar } from "@/components/user-avatar/user-avatar"
 import { cn } from "@/lib/utils"
 
+interface NavLink {
+  href: string
+  label: string
+  isActive: boolean
+  linkClassName?: string
+}
+
 interface AppNavProps {
   user: {
     id: string
@@ -31,7 +38,7 @@ export function AppNav({ user, unreadCount }: AppNavProps) {
   const label = user.displayName ?? user.handle
   const profileHref = `/u/${user.handle}`
 
-  const mainLinks = [
+  const mainLinks: NavLink[] = [
     { href: "/feed", label: "Feed", isActive: pathname === "/feed" },
     {
       href: "/discover",
@@ -50,7 +57,7 @@ export function AppNav({ user, unreadCount }: AppNavProps) {
       label: "Settings",
       isActive: pathname === "/settings" || pathname.startsWith("/settings/"),
     },
-  ] as const
+  ]
 
   return (
     <header className="sticky top-0 z-40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
